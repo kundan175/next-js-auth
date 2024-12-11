@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -23,7 +23,7 @@ const handler = NextAuth({
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<User | null> {
         try {
           if (!credentials?.email || !credentials?.password) {
             throw new Error("Invalid credentials");
@@ -50,9 +50,9 @@ const handler = NextAuth({
 
           return {
             id: user.id,
-            email: user.email,
-            name: user.name,
-            image: user.image,
+            email: user.email || "",
+            name: user.name || "",
+            image: user.image || "",
           };
         } catch (error) {
           console.error("Auth error:", error);
