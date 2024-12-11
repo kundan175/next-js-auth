@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import {
   ComponentType,
+  createElement,
   FC,
   PropsWithChildren,
   ReactElement,
@@ -170,7 +171,7 @@ export function withAuth<P extends WithAuthProps>(
       auth,
     } as P;
 
-    return <WrappedComponent {...componentProps} />;
+    return createElement(WrappedComponent, componentProps);
   };
 }
 
@@ -199,6 +200,6 @@ export function createProtectedPage<P extends WithAuthProps>(
       return null;
     }
 
-    return <ProtectedComponent {...props} />;
+    return createElement(ProtectedComponent, props);
   };
 }
