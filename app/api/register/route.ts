@@ -137,7 +137,7 @@ export async function OPTIONS(req: Request) {
 }
 
 // Helper function to validate registration data
-export function validateRegistrationData(data: {
+function validateRegistrationData(data: {
   email: string;
   password: string;
   name?: string;
