@@ -35,83 +35,138 @@ export default function ProtectedPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Protected Page
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-2xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            Protected Area
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            This page is only accessible to authenticated users
-          </p>
+          <p className="mt-3 text-gray-600">Welcome to your secure dashboard</p>
         </div>
 
-        {error && <ErrorMessage message={error} />}
-
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-          <div className="px-4 py-5 sm:px-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">
-              Session Information
-            </h3>
+        {error && (
+          <div className="mb-8">
+            <ErrorMessage message={error} />
           </div>
-          <div className="border-t border-gray-200">
-            <dl>
-              <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">Email</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {session.user?.email}
-                </dd>
-              </div>
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">Name</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {session.user?.name || "Not provided"}
-                </dd>
-              </div>
-              {session.user?.image && (
-                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500">Avatar</dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <img
-                      src={session.user.image}
-                      alt="User avatar"
-                      className="h-10 w-10 rounded-full"
-                    />
-                  </dd>
+        )}
+
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
+          <div className="px-6 py-8 border-b border-gray-100">
+            <div className="flex items-center space-x-4">
+              {session.user?.image ? (
+                <img
+                  src={session.user.image}
+                  alt="User avatar"
+                  className="h-16 w-16 rounded-full ring-2 ring-indigo-100"
+                />
+              ) : (
+                <div className="h-16 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 flex items-center justify-center text-white text-2xl font-bold">
+                  {session.user?.name?.[0] || session.user?.email?.[0] || "?"}
                 </div>
               )}
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  Session ID
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {session.user?.id || "Not available"}
-                </dd>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">
+                  {session.user?.name || "Welcome"}
+                </h3>
+                <p className="text-gray-500">{session.user?.email}</p>
               </div>
-            </dl>
+            </div>
+          </div>
+
+          <div className="px-6 py-6">
+            <h4 className="text-lg font-medium text-gray-900 mb-4">
+              Session Details
+            </h4>
+            <div className="space-y-4">
+              <div className="flex items-center py-3 px-4 rounded-xl bg-gray-50">
+                <span className="text-sm font-medium text-gray-500 w-1/3">
+                  Email
+                </span>
+                <span className="text-sm text-gray-900">
+                  {session.user?.email}
+                </span>
+              </div>
+              <div className="flex items-center py-3 px-4 rounded-xl bg-gray-50">
+                <span className="text-sm font-medium text-gray-500 w-1/3">
+                  Name
+                </span>
+                <span className="text-sm text-gray-900">
+                  {session.user?.name || "Not provided"}
+                </span>
+              </div>
+              <div className="flex items-center py-3 px-4 rounded-xl bg-gray-50">
+                <span className="text-sm font-medium text-gray-500 w-1/3">
+                  Session ID
+                </span>
+                <span className="text-sm text-gray-900 font-mono">
+                  {session.user?.id || "Not available"}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="flex flex-col space-y-4">
+        <div className="grid grid-cols-2 gap-4 mb-8">
           <button
             onClick={() => router.push("/")}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 border-indigo-600"
+            className="flex items-center justify-center px-6 py-3 rounded-xl text-indigo-600 bg-white border border-indigo-100 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-200 hover:scale-[1.02]"
           >
-            Return to Home
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
+            </svg>
+            Return Home
           </button>
           <button
             onClick={handleSignOut}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="flex items-center justify-center px-6 py-3 rounded-xl text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-200 hover:scale-[1.02]"
           >
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
+            </svg>
             Sign Out
           </button>
         </div>
 
-        <div className="text-center text-sm text-gray-500">
-          <p>
-            This is a protected page that can only be accessed by authenticated
-            users. Your session is currently active and secure.
-          </p>
+        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+          <div className="flex items-center space-x-3 text-gray-500 text-sm">
+            <svg
+              className="w-5 h-5 text-indigo-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z"
+              />
+            </svg>
+            <p>
+              This is a secure area. Your session is protected and all data
+              transmissions are encrypted.
+            </p>
+          </div>
         </div>
       </div>
     </div>
