@@ -13,7 +13,7 @@ const PASSWORD_MIN_LENGTH = 8;
 const rateLimitMiddleware = createRateLimitMiddleware(30, 60000); // 30 requests per minute
 
 // Password validation helper
-export function validatePassword(password: string): {
+function validatePassword(password: string): {
   isValid: boolean;
   error?: string;
 } {
