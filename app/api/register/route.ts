@@ -20,7 +20,7 @@ export function validatePassword(password: string): {
   if (password.length < PASSWORD_MIN_LENGTH) {
     return {
       isValid: false,
-      error: authErrors.WeakPassword.message,
+      error: authErrors.WeakPassword.message || "",
     };
   }
 
@@ -68,7 +68,7 @@ export async function POST(req: Request) {
     }
 
     // Validate password strength
-    const passwordValidation = validatePassword(password);
+    const passwordValidation = validatePassword(password || "");
     if (!passwordValidation.isValid) {
       throw new ApiError(
         passwordValidation.error || authErrors.WeakPassword.message,
@@ -148,7 +148,7 @@ export function validateRegistrationData(data: {
     errors.push(authErrors.InvalidEmail.message);
   }
 
-  const passwordValidation = validatePassword(data.password);
+  const passwordValidation = validatePassword(data.password || "");
   if (!passwordValidation.isValid) {
     errors.push(passwordValidation.error || authErrors.WeakPassword.message);
   }
