@@ -37,6 +37,7 @@ export type AuthResult = {
 
 export function useAuth(options: UseAuthOptions = {}): AuthResult {
   const { data: session, status } = useSession();
+  console.log(session, status);
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 

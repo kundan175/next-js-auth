@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function ProtectedPage() {
   const { data: session, status } = useSession();
+  console.log(session, status);
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
