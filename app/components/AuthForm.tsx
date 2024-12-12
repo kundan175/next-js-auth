@@ -113,24 +113,24 @@ export default function AuthForm({ mode }: AuthFormProps) {
           throw new Error(signInResult.error);
         }
 
-        router.push("/protected");
+        router.replace("/protected");
       } else {
         const result = await signIn("credentials", {
           email: formData.email,
           password: formData.password,
           redirect: false,
         });
-        console.log("dddd", result);
+        console.log(result);
         if (result?.error) {
           throw new Error(result.error);
         }
 
-        router.push("/protected");
+        router.replace("/protected");
       }
     } catch (error) {
-      console.log("error", error);
+      const formattedError = formatAuthError(error);
       setErrors({
-        form: [formatAuthError(error)],
+        form: [formattedError],
       });
 
       setTimeout(() => {
