@@ -106,7 +106,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         const signInResult = await signIn("credentials", {
           email: formData.email,
           password: formData.password,
-          redirect: true,
+          redirect: false,
         });
 
         if (signInResult?.error) {
@@ -118,9 +118,9 @@ export default function AuthForm({ mode }: AuthFormProps) {
         const result = await signIn("credentials", {
           email: formData.email,
           password: formData.password,
-          redirect: true,
+          redirect: false,
         });
-
+        console.log("dddd", result);
         if (result?.error) {
           throw new Error(result.error);
         }
