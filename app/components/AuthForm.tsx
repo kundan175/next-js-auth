@@ -113,7 +113,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           throw new Error(signInResult.error);
         }
 
-        router.replace("/protected");
+        window.location.href = "/protected";
       } else {
         const result = await signIn("credentials", {
           email: formData.email,
@@ -125,7 +125,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           throw new Error(result.error);
         }
 
-        router.replace("/protected");
+        window.location.href = "/protected";
       }
     } catch (error) {
       const formattedError = formatAuthError(error);
