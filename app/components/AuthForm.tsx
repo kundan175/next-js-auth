@@ -129,9 +129,8 @@ export default function AuthForm({ mode }: AuthFormProps) {
       }
     } catch (error) {
       console.log("error", error);
-      const formattedError = formatAuthError(error);
       setErrors({
-        form: [formattedError],
+        form: [formatAuthError(error)],
       });
 
       setTimeout(() => {
