@@ -128,6 +128,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         router.push("/protected");
       }
     } catch (error) {
+      console.log("error", error);
       const formattedError = formatAuthError(error);
       setErrors({
         form: [formattedError],
